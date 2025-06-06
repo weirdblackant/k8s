@@ -1,0 +1,33 @@
+Kubernetes:
+-------------
+- Kubernetes shortly 'k8s' is an open-source container orchestration system used to automate deployment, scaling and management of containerised applications
+
+
+Kubernetes Architecture:
+-----------------------
+- K8s architecture has below componenents
+	- kube api-server
+	- etcd(persistent store)
+	- kube-scheduler
+	- kube-controller-manager
+	- cloud-controller-manager
+
+- kube api-server:
+kube-api-server is an http api-endpoint responsible to take commands and process the requests from the users by co-ordinating with the components in the controlplane and operate on the nodes. Kube api-server can be horizantally scaled(increase in number of api-servers) in order to meet the demand to control all the nodes of the cluster.
+
+- etcd:
+is the key value store or database that stores all the current state of the cluster.
+
+- kube-scheduler:
+this component watches for newly created pods and is responsible for scheduling pods accross the nodes in the cluster by considering all the constraints specified by the user on those pods.
+
+- kube-controller-manager:
+kube controller-manager is responsible for controlling all the control processes in the cluster. As a reason of having many controllers, all the processess are compiled into a single binary to run as a single process. Namely there are few controllers
+	- Node controller
+	- Job controller
+	- Endpoint-slic controller
+	- ServiceAccount controller
+
+- cloud-controller-manager:
+
+
