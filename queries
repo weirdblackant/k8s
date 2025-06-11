@@ -1,0 +1,3 @@
+- What is a namespace in k8s?
+
+Namespace is a way to divide a cluster into logical units, provide isolation and organization for resources like pods, services, and deployments.
