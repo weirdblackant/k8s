@@ -29,5 +29,18 @@ kube controller-manager is responsible for controlling all the control processes
 	- ServiceAccount controller
 
 - cloud-controller-manager:
+is a component responsible for linking your cluster into cloud provider's API by isolating the components that interact with cluster and the cloud provider's API.
+
+
+- Apart from the above components there are few other components in the k8s Architecture which are deployed by control plane to work with nodes
+	- Kubelet
+	- Kube-proxy
+	- cloud DNS
+	- 
+kubelet: 
+is an agent that works on each worker nodes which is responsible for looking after the workloads, services etc on worker nodes
+
+kube-proxy:
+Kube-proxy is a network proxy that runs on each node of the cluster implementing network inside and outside of the cluster using 'service' concept.
 
 
