@@ -2,12 +2,11 @@ Kubernetes:
 -------------
 - Kubernetes shortly 'k8s' is an open-source container orchestration system used to automate deployment, scaling and management of containerised applications
 
-
 Kubernetes Architecture:
 -----------------------
-- K8s architecture has below componenents
+- K8s architecture has below componenents also known as control-plane components
 	- kube api-server
-	- etcd(persistent store)
+	- etcd(key-value store)
 	- kube-scheduler
 	- kube-controller-manager
 	- cloud-controller-manager
@@ -44,4 +43,83 @@ kube-proxy:
 Kube-proxy is a network proxy that runs on each node of the cluster implementing network inside and outside of the cluster using 'service' concept.
 
 cloud DNS:
+
+--------------
+The basic K8s objects:
+----------------------
+- Namespace 
+
+- Pod (container placement)
+
+- Replication controller
+- Replica Set
+- Daemonset
+- Deployment
+- StatefulSet
+- HPA
+
+- service(network related)
+- Ingress( network related)
+- clusterip(network related)
+- NetworkPolicies(network related)
+
+- Config Map
+- Secret
+
+- ClusterIP
+- NODeip
+- Volume
+- job
+
+- PersistentVolumeClaim
+
+- K8s uses the above resources to represent the state of a cluster.
+- Pod is the basic structure of compute resource in k8s which has one or more containers. 
+- if something goes wrong with one of the pods, we cannot reschedule the pods. inorder to schedule again, we can use replication controller, replication will be used to reschedule.
+
+- For controlling permissions using
+	Role
+	Rolebinding
+	ClusterRole
+	ClustterRoleBinding
+
+- When we execute any command, in the backend, the 'API server' takes requests and process to produce output.
+- 'WorkLoad' is any application running on k8s cluster.
+
+Namespace:
+-----------
+Namespaces are used for:
+- Isolation- To avoid conflicts of teams using same resources
+- Permissions- To maintain unauthorised changes to clusters 
+- Resource Control: To confine resources for a dedicated cluster
+- Performance: To increase cluster perform all are managed.
+
+default ns: A default space for objects that don't have a specified nskube-system: A default space for  k8s-system objects like k8-dns,k8-proxy
+kube-public: A default space for resources available to all users without authentication
+kube-node-lease: A default space for objects related to cluster scaling.
+
+
+
+K8s Manifest file:
+------------------
+- Accepted formats are yaml, json
+
+Imperative way
+Declarative way
+
+
+Declarative way:
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-ns
+  labels:
+    team: testing
+    managers: chandra
+
+
+- To apply the manifest file
+
+'kubectl apply -f <fileName.yaml>'
 
