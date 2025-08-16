@@ -1,2 +1,44 @@
 - k8s architecture
-- 
+- k8s installation
+- k8s resources/objects
+  workloads
+  - pods
+  - replication controller
+  - replica sets
+  - Deployments
+  - Statefulset
+  - Daemonset
+  
+  Scaling
+  - HPA
+
+  Service
+  - ClusterIP
+  - NodePort
+  - loadbalancer
+  - ExternalName
+
+  Volumes
+  - volumes
+  - PersistentVolumes
+  - Persistnent volume claim
+  - storage classes
+  
+  configuration
+  - secrets
+  - configmaps
+
+  Resource limits
+  
+  Probes
+  
+  Health checks
+
+  preemption
+  
+  node maintainance
+
+  RBAC
+
+- manifests
+- Helm

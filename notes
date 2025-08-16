@@ -47,7 +47,7 @@ cloud DNS:
 --------------
 The basic K8s objects:
 ----------------------
-- Namespace 
+- Namespace: 
 
 - Pod (container placement)
 
@@ -67,7 +67,7 @@ The basic K8s objects:
 - Secret
 
 - ClusterIP
-- NODeip
+- NodePort
 - Volume
 - job
 
@@ -94,7 +94,7 @@ Namespaces are used for:
 - Resource Control: To confine resources for a dedicated cluster
 - Performance: To increase cluster perform all are managed.
 
-default ns: A default space for objects that don't have a specified nskube-system: A default space for  k8s-system objects like k8-dns,k8-proxy
+default ns: A default space for objects that don't have a specified 'ns'kube-system: A default space for  k8s-system objects like k8-dns,k8-proxy
 kube-public: A default space for resources available to all users without authentication
 kube-node-lease: A default space for objects related to cluster scaling.
 
@@ -109,7 +109,7 @@ Declarative way
 
 
 Declarative way:
-
+------------
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -117,9 +117,21 @@ metadata:
   labels:
     team: testing
     managers: chandra
-
+----------
 
 - To apply the manifest file
 
-'kubectl apply -f <fileName.yaml>'
+	'kubectl apply -f <fileName.yaml>'
+
+The above command will apply the file in the cluster and resources mentioned in the manifest file is created
+
+-----------------
+
+
+Below are the concepts
+===================================================
+Pod lifecycle:
+----------------
+- Assigning a Pod to a specific node is called binding
+- The process of selecting which node to use is called scheduling.
 
