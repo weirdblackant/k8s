@@ -6,8 +6,7 @@ metadata:
 spec:
   containers:
     - name: app
-      command: ["/bin/sh", "-c", "printenv"]
-      image: busybox:latest
+      image: heartocean/utils:live 
       envFrom:
         - configMapRef:
             name: cmap3

@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: spring-boot-app1
+  name: pod2
   namespace: ts
   labels:
-    app: springapp1
+    app: pod2
 spec:
   containers:
     - name: tomc
-      image: heartocean/docom:spring1
+      image: heartocean/utils:live
       env:
         - name: PLAYER_INITIAL_LIVES
           valueFrom:
@@ -21,10 +21,6 @@ spec:
               name: cmap2
               key: ui_properties_file_name
        
-      ports:
-        - name: tomp
-          containerPort: 8080
-
       volumeMounts:
         - name: cmap-vol1
           mountPath: /opt
