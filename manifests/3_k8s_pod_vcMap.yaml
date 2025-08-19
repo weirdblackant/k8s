@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: spring-boot-app1
+  namespace: ts
+  labels:
+    app: springapp1
+spec:
+  containers:
+    - name: tomc
+      image: heartocean/docom:spring1
+      ports:
+        - name: tomp
+          containerPort: 8080
+      volumeMounts:
+        - name: vol1
+          mountPath: /tmp
+
+  volumes:
+    - name: vol1
+      configMap:
+        name: cmap1

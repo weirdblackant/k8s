@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cmap1
+  namespace: ts
+spec:
+  settings.xml: | 
+    allowed: '"true"'
+    enemies: aliens
+    lives: "3"
