@@ -9,14 +9,34 @@ spec:
   containers:
     - name: tomc
       image: heartocean/docom:spring1
+      env:
+        - name: PLAYER_INITIAL_LIVES
+          valueFrom:
+            configMapKeyRef:
+              name: game-demo
+              key: player_initial_lives
+        - name: UI_PROPERTY_FILE_NAME
+          valueFrom:
+            configMapKeyRef: 
+              name: game-demo
+              key: ui_properties_file_name
+       
       ports:
         - name: tomp
           containerPort: 8080
+
       volumeMounts:
-        - name: vol1
-          mountPath: /tmp
+        - name: cmap-vol1
+          mountPath: /opt
 
   volumes:
-    - name: vol1
+    - name: cmap-vol1
       configMap:
-        name: cmap1
+        name: game-demo
+        
+        items:
+          - key: "game.properties"
+            path: "game.properties"
+          
+          - key: "user-interface.properties"
+            path: "user-interface.properties"
