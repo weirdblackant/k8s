@@ -13,12 +13,12 @@ spec:
         - name: PLAYER_INITIAL_LIVES
           valueFrom:
             configMapKeyRef:
-              name: game-demo
+              name: cmap2 
               key: player_initial_lives
         - name: UI_PROPERTY_FILE_NAME
           valueFrom:
             configMapKeyRef: 
-              name: game-demo
+              name: cmap2
               key: ui_properties_file_name
        
       ports:
@@ -32,7 +32,7 @@ spec:
   volumes:
     - name: cmap-vol1
       configMap:
-        name: game-demo
+        name: cmap2
         
         items:
           - key: "game.properties"

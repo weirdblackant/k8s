@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cmap1 
+data:
+  username: k8s-admin
+  access_level: "1"
