@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
     - name: testc
-      image: heartoean/utils:live
+      image: heartocean/utils:live
       volumeMounts:
         - name: hp1
           mountPath: /opt
