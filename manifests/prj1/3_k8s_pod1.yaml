@@ -3,26 +3,30 @@ kind: Pod
 metadata:
   name: pod1
   namespace: ts
+  labels:
+    app: springapp1
 spec:
+  imagePullSecrets:
+    - name: docker-cred
   initContainers:
     - name: kaniko
       image: bitnami/kaniko
       args: 
-        - "--dockerfile=/devcode/multi_mvn_tom_settings" 
-        - "--context=/devcode/"
-        - "--destination=heartocean/docom:deletethis"
+        - "--dockerfile=/space/multi_mvn_tom_settings" 
+        - "--context=/space/"
+        - "--destination=heartocean/pvt:spring1"
       volumeMounts:
         - name: dev-vol
-          mountPath: /devcode
+          mountPath: /space
         - name: docker-secr
-          mountPath: /home/kaniko
+          mountPath: /kaniko
   containers:
     - name: tomc
-      image: heartocean/docom:deletethis
+      image: heartocean/pvt:spring1
       ports: 
         - containerPort: 8080
           name: tomp
-  
+
   volumes:
     - name: dev-vol
       hostPath:
