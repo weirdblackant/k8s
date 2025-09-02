@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+  namespace: ts
+spec:
+  imagePullSecrets:
+    - name: dockerhub-sec
+  containers:
+    - name: spring1
+      image: heartocean/pvt:spring1
+      livenessProbe:
+        exec:
+          command: 
+            - "ls"
+            - "/app/"
+        initialDelaySeconds: 5
+        periodSeconds: 5
