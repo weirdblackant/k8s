@@ -6,6 +6,7 @@ metadata:
   labels:
     app: springapp1
 spec:
+  nodeName: controlplane
   imagePullSecrets:
     - name: docker-cred
   initContainers:
@@ -30,7 +31,7 @@ spec:
   volumes:
     - name: dev-vol
       hostPath:
-        path: /home/alpine/k8s/manifests/prj1/spring-boot-mongo-docker
+        path: /root/spring-boot-mongo-docker
         type: Directory
     - name: docker-secr
       secret:
