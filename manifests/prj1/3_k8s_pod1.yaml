@@ -6,19 +6,20 @@ metadata:
   labels:
     app: springapp1
 spec:
-  nodeName: controlplane
+  nodeSelector: 
+    name: controlplane
   imagePullSecrets:
     - name: docker-cred
   initContainers:
     - name: kaniko
       image: bitnami/kaniko
       args: 
-        - "--dockerfile=/space/multi_mvn_tom_settings" 
-        - "--context=/space/"
+        - "--dockerfile=/space/app/multi_mvn_tom_settings" 
+        - "--context=/space/app"
         - "--destination=heartocean/pvt:spring1"
       volumeMounts:
-        - name: dev-vol
-          mountPath: /space
+        - name: vol1
+          mountPath: /space/app
         - name: docker-secr
           mountPath: /kaniko
   containers:
@@ -29,7 +30,7 @@ spec:
           name: tomp
 
   volumes:
-    - name: dev-vol
+    - name: vol1
       hostPath:
         path: /root/spring-boot-mongo-docker
         type: Directory
