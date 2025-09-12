@@ -7,12 +7,12 @@ metadata:
     app: springapp1
 spec:
   nodeSelector: 
-    kubernetes.io/hostname=controlplane
+    kubernetes.io/hostname: controlplane
   imagePullSecrets:
     - name: docker-cred
   initContainers:
     - name: kaniko
-      image: bitnami/kaniko
+      image: bitnami/kaniko:latest
       args: 
         - "--dockerfile=/space/app/multi_mvn_tom_settings" 
         - "--context=/space/app"
@@ -21,7 +21,7 @@ spec:
         - name: vol1
           mountPath: /space/app
         - name: docker-secr
-          mountPath: /kaniko
+          mountPath: /kaniko/.docker
   containers:
     - name: tomc
       image: heartocean/pvt:spring1

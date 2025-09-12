@@ -1,0 +1,77 @@
+ERRORS:
+--------
+
+
+- error:
+CAUSE: THE BELOW ERROR CAUSED DUE TO MISCONFIGURATION OF SECRET ATTRIBUTE IN THE MANIFEST AT THE "VOLUMEMOUNT" OF THE "KANIKO" CONTAINER
+
+pod.yaml(WRONG)
+-------------
+  initContainers:
+    - name: kaniko
+      image: bitnami/kaniko
+      args:
+        - "--dockerfile=/space/app/multi_mvn_tom_settings"
+        - "--context=/space/app"
+        - "--destination=heartocean/pvt:spring1"
+      volumeMounts:
+        - name: vol1
+          mountPath: /space/app
+        - name: docker-secr
+          mountPath: /kaniko
+  volumes:
+    - name: docker-secr
+      secret:
+        secretName: docker-cred
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+-------------
+
+pod.yaml(CORRECT)
+------------
+  initContainers:
+    - name: kaniko
+      image: bitnami/kaniko
+      args:
+        - "--dockerfile=/space/app/multi_mvn_tom_settings"
+        - "--context=/space/app"
+        - "--destination=heartocean/pvt:spring1"
+      volumeMounts:
+        - name: vol1
+          mountPath: /space/app
+        - name: docker-secr
+          mountPath: /kaniko/.docker/
+  volumes:
+    - name: docker-secr
+      secret:
+        secretName: docker-cred
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+-------------
+
+
+BELOW ARE THE ERROR EVENTS THAT DIAGNOSED BY THE TROUBLESHOOTING
+------------
+Events:                                                                                                                                                                
+  Type     Reason     Age               From               Message                                                                                                     
+  ----     ------     ----              ----               -------                                                                                                     
+  Normal   Scheduled  55s               default-scheduler  Successfully assigned ts/pod1 to controlplane                                                               
+  Normal   Pulled     45s               kubelet            Successfully pulled image "bitnami/kaniko" in 9.077s (9.077s including waiting). Image size: 31523535 bytes.
+  Normal   Pulled     43s               kubelet            Successfully pulled image "bitnami/kaniko" in 731ms (731ms including waiting). Image size: 31523535 bytes.  
+  Normal   Pulled     30s               kubelet            Successfully pulled image "bitnami/kaniko" in 612ms (612ms including waiting). Image size: 31523535 bytes.  
+  Normal   Pulling    6s (x4 over 54s)  kubelet            Pulling image "bitnami/kaniko"                                                                              
+  Normal   Created    5s (x4 over 45s)  kubelet            Created container: kaniko                                                                                   
+  Warning  Failed     5s (x4 over 44s)  kubelet            Error: failed to create containerd task: failed to create shim task: OCI runtime create failed: runc create 
+failed: unable to start container process: error during container init: exec: "/kaniko/executor": stat /kaniko/executor: no such file or directory: unknown            
+  Normal   Pulled     5s                kubelet            Successfully pulled image "bitnami/kaniko" in 735ms (735ms including waiting). Image size: 31523535 bytes.  
+  Warning  BackOff    4s (x5 over 42s)  kubelet            Back-off restarting failed container kaniko in pod pod1_ts(5fdc9d1b-9046-4ce8-9c67-0a155c0fcf68)   
+
+===========================================
+
+Events:
+  Type     Reason       Age               From               Message
+  ----     ------       ----              ----               -------
+  Normal   Scheduled    22s               default-scheduler  Successfully assigned ts/pod1 to minikube
+  Warning  FailedMount  6s (x6 over 22s)  kubelet            MountVolume.SetUp failed for volume "vol1" : hostPath type check failed: /home/alpine/spring-boot-mongo-docker is not a directory
