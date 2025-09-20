@@ -1,0 +1,6 @@
+spec:
+  containers:
+    - name: tomc
+      resources:
+        limits:
+          
