@@ -4,33 +4,33 @@ metadata:
   name: pod1
   namespace: ts
 spec:
-  imagePullSecret:
+  imagePullSecrets:
     - name: docker-cred
   initContainers:
     - name: kaniko
       image: bitnami/kaniko
       imagePullPolicy: IfNotPresent #Always,Never,IfNotPresent
       args:
-        - "--dockerfile=/space/dockerfile_alpine_live_entryPoint"
-        - "--context=./"
+        - "--dockerfile=/space/dockerfile_alpine_live"
+        - "--context=/space/"
         - "--destination=heartocean/pvt:alpine_live"
       volumeMounts:
         - name: docker-cred
-          path: /kaniko/.docker/
+          mountPath: /kaniko/.docker/
         - name: dockerfile-vol
-          path: /space/ 
-    - name: kaniko
+          mountPath: /space/ 
+    - name: kaniko2
       image: bitnami/kaniko
       imagePullPolicy: IfNotPresent #Always,Never,IfNotPresent
       args:
         - "--dockerfile=/space/dockerfile_alpine_live_entryPoint"
-        - "--context=./"
+        - "--context=/space/"
         - "--destination=heartocean/pvt:alpine_live_entrypoint"
       volumeMounts:
         - name: docker-cred
-          path: /kaniko/.docker/
+          mountPath: /kaniko/.docker/
         - name: dockerfile-vol
-          path: /space/
+          mountPath: /space/
 
   containers:
     - name: con1
@@ -46,5 +46,4 @@ spec:
             path: config.json
     - name: dockerfile-vol
       hostPath:
-        path: ./
-        type: Directory
+        path: .
