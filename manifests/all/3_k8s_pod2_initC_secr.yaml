@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+  namespace: ts
+spec:
+  imagePullSecret:
+    - name: docker-cred
+  initContainers:
+    - name: kaniko
+      image: bitnami/kaniko
+      imagePullPolicy: IfNotPresent #Always,Never,IfNotPresent
+      args:
+        - "--dockerfile=/space/dockerfile_alpine_live_entryPoint"
+        - "--context=./"
+        - "--destination=heartocean/pvt:alpine_live"
+      volumeMounts:
+        - name: docker-cred
+          path: /kaniko/.docker/
+        - name: dockerfile-vol
+          path: /space/ 
+    - name: kaniko
+      image: bitnami/kaniko
+      imagePullPolicy: IfNotPresent #Always,Never,IfNotPresent
+      args:
+        - "--dockerfile=/space/dockerfile_alpine_live_entryPoint"
+        - "--context=./"
+        - "--destination=heartocean/pvt:alpine_live_entrypoint"
+      volumeMounts:
+        - name: docker-cred
+          path: /kaniko/.docker/
+        - name: dockerfile-vol
+          path: /space/
+
+  containers:
+    - name: con1
+      image: heartocean/pvt:alpine_live
+      imagePullPolicy: IfNotPresent #Always,Never,IfNotPresent
+ 
+  volumes:
+    - name: docker-cred
+      secret:
+        secretName: docker-cred
+        items:
+          - key: .dockerconfigjson
+            path: config.json
+    - name: dockerfile-vol
+      hostPath:
+        path: ./
+        type: Directory

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+  namespace: ts
+spec:
+  imagePullSecret:
+    - name: docker-cred
+  containers:
+    - name: con1
+      image: alpine_live
+      imagePullPolicy: IfNotPresent #Always,Never,IfNotPresent
+      env: 
+        - name: USERNAME
+          value: 'helloalpine1'
+        - name: PASSWD
+          value: 'alpinepass'
