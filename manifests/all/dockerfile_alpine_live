@@ -1,2 +1,2 @@
 FROM alpine
-CMD ["sh","-c","sleep","300"]
+CMD ["sh","-c","sleep 300"]

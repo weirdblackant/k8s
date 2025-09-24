@@ -4,6 +4,8 @@ metadata:
   name: pod1
   namespace: ts
 spec:
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: NoSchedule
   imagePullSecrets:
     - name: docker-cred
   initContainers:
@@ -46,4 +48,4 @@ spec:
             path: config.json
     - name: dockerfile-vol
       hostPath:
-        path: .
+        path: /root/k8s/manifests/all

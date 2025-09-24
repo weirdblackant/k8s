@@ -1,4 +1,3 @@
-alpine_live
 FROM alpine
 CMD ["300"]
 ENTRYPOINT ["sh","-c","sleep"]

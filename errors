@@ -1,7 +1,7 @@
 ERRORS:
 --------
 
-
+==================================================
 - error:
 CAUSE: THE BELOW ERROR CAUSED DUE TO MISCONFIGURATION OF SECRET ATTRIBUTE IN THE MANIFEST AT THE "VOLUMEMOUNT" OF THE "KANIKO" CONTAINER
 
@@ -75,3 +75,42 @@ Events:
   ----     ------       ----              ----               -------
   Normal   Scheduled    22s               default-scheduler  Successfully assigned ts/pod1 to minikube
   Warning  FailedMount  6s (x6 over 22s)  kubelet            MountVolume.SetUp failed for volume "vol1" : hostPath type check failed: /home/alpine/spring-boot-mongo-docker is not a directory
+
+
+
+===============================================
+ERROR:
+-------
+
+controlplane k8s/manifests/all on  master [!] ✖ kubectl logs pod1 -n ts
+Defaulted container "con1" out of: con1, kaniko (init), kaniko2 (init)
+BusyBox v1.37.0 (2025-05-26 20:04:45 UTC) multi-call binary.
+
+Usage: sleep [N]...
+
+Pause for a time equal to the total of the args given, where each arg can
+have an optional suffix of (s)econds, (m)inutes, (h)ours, or (d)ays
+
+--------
+ANSWER:
+--------
+
+- if you are using a command in a dockerfile or a manifest using '"sh", "-c"', then you have to consider other command to come inside "" individually like '"sh", "-c","sleep","300"'
+
+
+controlplane k8s/manifests/all on  master [!] ➜  cat dockerfile_alpine_live
+FROM alpine
+CMD ["sh","-c","sleep","300"]
+
+
+------------------
+"sh", "-c","sleep","300"	(RIGHT)
+"sh", "-c","sleep 300" 		(WRONG)
+--------------------
+
+
+WHERE as inside a Kubernetes manifest if you use 'command', then you have to mention command as 
+
+command: ["sh","-c","sleep 400"]
+
+==================================
