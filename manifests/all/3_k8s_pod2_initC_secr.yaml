@@ -5,7 +5,7 @@ metadata:
   namespace: ts
 spec:
   nodeSelector:
-    node-role.kubernetes.io/control-plane: NoSchedule
+    kubernetes.io/hostname: controlplane
   imagePullSecrets:
     - name: docker-cred
   initContainers:
