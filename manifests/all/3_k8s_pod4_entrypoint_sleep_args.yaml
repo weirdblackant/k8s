@@ -5,7 +5,7 @@ metadata:
   namespace: ts
 spec:
   nodeSelector:
-    kubernetes.io/hostname: controlplane
+    kubernetes.io/hostname: controlplane 
   imagePullSecrets:
     - name: docker-cred
   containers:
@@ -13,4 +13,4 @@ spec:
       image: heartocean/pvt:alpine_live_entrypoint
       imagePullPolicy: Always #Always,Never,IfNotPresent
       args: 
-        - "499"
+        - "499" # when using 'sh -c' in dockerfile should be careful as theENTRYPOINT will not consider CMD supplied arguments but only considers if not used with 'sh -c'
